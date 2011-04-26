@@ -26,24 +26,29 @@ struct stile::MouseEvent
 class stile::InputHandler
 {
 public:
-	virtual void handleKeyboardEvent	(
-			int key,
-			int x,
-			int y,
-			bool state, 
-			bool special
-		) = 0;
-	virtual void handleMouseEvent	(
-			int button,
-			bool state,
-			int x,
-			int y
-		) = 0;
-	virtual void handleMouseMovement	(
-			int x,
-			int y,
-			MouseEvent** buttons
-		) {};
+	virtual void handleKeyboardEvent  (
+                                      int key,
+                                      int x,
+                                      int y,
+                                      bool state,
+                                      bool alt,
+                                      bool ctrl,
+                                      bool shift
+                                    ) = 0;
+	virtual void handleMouseEvent     (
+                                      int button,
+                                      bool state,
+                                      int x,
+                                      int y,
+                                      bool alt,
+                                      bool ctrl,
+                                      bool shift
+                                    ) = 0;
+	virtual void handleMouseMovement  (
+                                      int x,
+                                      int y,
+                                      MouseEvent** buttons
+                                    ){};
 };
 
 #endif //STILE_INPUT_HANDLER

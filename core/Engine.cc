@@ -11,8 +11,10 @@ stile::Engine::Engine	(
 	:mControl(stile::getControl())
 {
 	mWindow = new sf::Window(sf::VideoMode(width, height, 32), title);
-	setUpdateRate(updateRate);
-	setFrameRate(frameRate);
+	mUpdateRate = updateRate;
+	mControl.time->addTrigger(this, 1, 1000/mUpdateRate, true);
+	mFrameRate = frameRate;
+	mControl.time->addTrigger(this, 2, 1000/mFrameRate, true);
 	mPaused = false;
 	mStopped = false;
 };
@@ -31,11 +33,7 @@ void	stile::Engine::render	()
 
 void	stile::Engine::update	(unsigned int elapsed)
 {
-	sf::Event event;
-	while(mWindow->GetEvent(event))
-	{
-
-	}
+	mControl.event->processWindowEvents(mWindow);
 	if(mWorld && !mPaused)
 		mWorld->update(elapsed);
 }

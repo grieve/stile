@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="core/Engine.cc" open="1" top="1" tabpos="1">
+		<Cursor position="459" topLine="0" />
+	</File>
+	<File name="core/Engine.h" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="core/Timer.cc" open="1" top="0" tabpos="6">
+		<Cursor position="6486" topLine="261" />
+	</File>
+	<File name="math/Utils.cc" open="1" top="0" tabpos="3">
+		<Cursor position="19" topLine="0" />
+	</File>
+	<File name="math/Utils.h" open="1" top="0" tabpos="4">
+		<Cursor position="112" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

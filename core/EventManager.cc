@@ -9,17 +9,16 @@ LICENSE&&
 struct stile::EventManager::EventManagerImpl
 {
 public:
-	EventManager&	mParent;
-	Timer&	mTimer;
-	Logger&	mLogger;
-	Configurator&	mConfig;
-	GameState	mGameState;
+	EventManager&	                    mParent;
+	Timer&	                          mTimer;
+	Logger&	                          mLogger;
+	Configurator&	                    mConfig;
+	GameState	                        mGameState;
 	std::vector<StateChangeCallback>	mStateChangeCallbacks;
-	std::vector<InputHandler*>	mKeyboardListeners;
-	std::vector<InputHandler*>	mMouseListeners;
-	MouseEvent*	mButtonStates	[10];
-	bool	mNormalKeyMap	[256];
-	bool	mSpecialKeyMap	[256];
+	std::vector<InputHandler*>	      mKeyboardListeners;
+	std::vector<InputHandler*>	      mMouseListeners;
+	MouseEvent*	                      mButtonStates	[10];
+	sf::Window*                       mWindow;
 
 	EventManagerImpl	(
 			EventManager* parent,
@@ -32,8 +31,6 @@ public:
 		, mLogger	(*logger)
 		, mConfig	(*config)
 	{
-		memset(mNormalKeyMap, false, sizeof(bool)*256);
-		memset(mSpecialKeyMap, false, sizeof(bool)*256);
 		for (unsigned int x = 0; x < 10; x++)
 		{
 			mButtonStates[x]	= new MouseEvent;
@@ -177,71 +174,25 @@ stile::GameState stile::EventManager::getGameState ()
 };
 
 bool stile::EventManager::keyPressed	(
-		int key,
-		bool special
+		int key
 	)
 {
-	if (special)
-	{
-		return mImpl.mSpecialKeyMap[key];
-	}
-	else
-	{
-		return mImpl.mNormalKeyMap[key];
-	}
 }
 
-void stile::EventManager::handleNormalKeyDown	(
-		unsigned char key,
-		int x,
-		int y
-	)
+void stile::EventManager::handleKeyEvent (
+                                                unsigned char key,
+                                                int x,
+                                                int y,
+                                                bool state,
+                                                bool alt,
+                                                bool ctrl,
+                                                bool shift
+                                              )
 {
 	unsigned int intKey = (unsigned int)key;
-	mImpl.mNormalKeyMap[intKey] = true;
 	for (unsigned int i=0; i<mImpl.mKeyboardListeners.size(); i++)
 	{
-		mImpl.mKeyboardListeners[i]->handleKeyboardEvent (intKey, x, y, true, false);
-	}
-}
-
-void stile::EventManager::handleNormalKeyUp	(
-		unsigned char key,
-		int x,
-		int y
-	)
-{
-	unsigned int intKey = (unsigned int)key;
-	mImpl.mNormalKeyMap[intKey] = false;
-	for (unsigned int i=0; i<mImpl.mKeyboardListeners.size(); i++)
-	{
-		mImpl.mKeyboardListeners[i]->handleKeyboardEvent (intKey, x, y, false, false);
-	}
-}
-
-void stile::EventManager::handleSpecialKeyDown	(
-		int key,
-		int x,
-		int y
-	)
-{
-	mImpl.mSpecialKeyMap[key] = true;
-	for (unsigned int i=0; i<mImpl.mKeyboardListeners.size(); i++)
-	{
-		mImpl.mKeyboardListeners[i]->handleKeyboardEvent (key, x, y, true, true);
-	}
-}
-
-void stile::EventManager::handleSpecialKeyUp	(
-		int key,
-		int x,
-		int y
-	)
-{
-	mImpl.mSpecialKeyMap[key] = false;
-	for (unsigned int i=0; i<mImpl.mKeyboardListeners.size(); i++)
-	{
-		mImpl.mKeyboardListeners[i]->handleKeyboardEvent (key, x, y, false, true);
+		mImpl.mKeyboardListeners[i]->handleKeyboardEvent (intKey, x, y, state, alt, ctrl, shift);
 	}
 }
 
@@ -258,7 +209,7 @@ void stile::EventManager::handleMouseEvent	(
 	mImpl.mButtonStates[button]->y	= y;
 	for (unsigned int i=0; i <mImpl.mMouseListeners.size(); i++)
 	{
-		mImpl.mMouseListeners[i]->handleMouseEvent(button, state, x, y);
+		mImpl.mMouseListeners[i]->handleMouseEvent(button, state, x, y, false, false, false);
 	}
 	mImpl.mLogger.debug(5,"EventManager: Mouse event (%d, %d, %d, %d)", button, state, x, y);
 }
@@ -283,4 +234,17 @@ void stile::EventManager::shutdown	(
 	//TODO add shutdown callbacks
 	mImpl.mLogger.debug(3, "NOTE: Shutdown callbacks not yet implemented.\nShutting down...");
 	exit(exitCode);
+}
+
+void stile::EventManager::processWindowEvents (sf::Window* window)
+{
+  sf::Event event;
+  while(window->GetEvent(event))
+  {
+    if(event.Type == sf::Event::Closed)
+    {
+      setGameState(stile::GAME_STATE_EXIT);
+      shutdown(0);
+    }
+  }
 }

@@ -14,6 +14,7 @@ LICENSE&&
 #include "Timer.h"
 #include "Logger.h"
 #include "Configurator.h"
+#include "SFML/Window.hpp"
 
 namespace stile
 {
@@ -22,7 +23,8 @@ namespace stile
 		GAME_STATE_NORMAL,
 		GAME_STATE_PAUSED,
 		GAME_STATE_SUSPENDED,
-		GAME_STATE_OVER
+		GAME_STATE_OVER,
+		GAME_STATE_EXIT
 	};
 	class EventManager;
 }
@@ -32,30 +34,28 @@ class stile::EventManager
 	typedef void (*StateChangeCallback) (GameState);
 
 public:
-		EventManager	(Timer* timer, Logger* logger, Configurator* config);
-		~EventManager	();
-	void	addKeyboardListener	(InputHandler* listener);
-	void	removeKeyboardListener	(InputHandler* listener);
-	void	addMouseListener	(InputHandler* listener);
-	void	removeMouseListener	(InputHandler* listener);
-	void	addGameStateCallback	(StateChangeCallback callback);
-	void	removeGameStateCallback	(StateChangeCallback callback);
-	void	setGameState	(GameState gameState);
-	GameState	getGameState	();
-	bool	keyPressed	(int key, bool special = false);
-	void	handleNormalKeyDown	(unsigned char key, int x, int y);
-	void	handleNormalKeyUp	(unsigned char key, int x, int y);
-	void	handleSpecialKeyDown	(int key, int x, int y);
-	void	handleSpecialKeyUp	(int key, int x, int y);
-	void	handleMouseEvent	(int button, int state, int x, int y);
-	void	handleMouseMovement	(int x, int y);
-	void	shutdown	(int exitCode);
+            EventManager	          (Timer* timer, Logger* logger, Configurator* config);
+            ~EventManager	          ();
+	void      addKeyboardListener	    (InputHandler* listener);
+	void      removeKeyboardListener	(InputHandler* listener);
+	void      addMouseListener	      (InputHandler* listener);
+	void      removeMouseListener	    (InputHandler* listener);
+	void      addGameStateCallback	  (StateChangeCallback callback);
+	void      removeGameStateCallback	(StateChangeCallback callback);
+	void      setGameState            (GameState gameState);
+	GameState	getGameState            ();
+	bool      keyPressed              (int key);
+	void      handleKeyEvent          (unsigned char key, int x, int y, bool state, bool alt, bool ctrl, bool shift);
+	void      handleMouseEvent        (int button, int state, int x, int y);
+	void      handleMouseMovement     (int x, int y);
+	void      shutdown                (int exitCode);
+	void      processWindowEvents     (sf::Window* window);
 
 private:
-	struct	EventManagerImpl;
-	EventManagerImpl&	mImpl;
+	struct            EventManagerImpl;
+	EventManagerImpl& mImpl;
 
-	EventManager	(EventManager& copy);
-	EventManager operator=	(EventManager& rhs);
+	EventManager            (EventManager& copy);
+	EventManager operator=  (EventManager& rhs);
 };
 #endif //STILE_EVENT_MANAGER

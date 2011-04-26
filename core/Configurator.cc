@@ -3,39 +3,39 @@
 struct stile::Configurator::ConfiguratorImpl
 {
 public:
-	Configurator&	mParent;
-	Timer&	mTimer;
-	Logger&	mLogger;
-	char	mConfigFile[256];
-	bool	mLastFailed;
-	map<string, bool>	mBooleanOptions;
+	Configurator&       mParent;
+	Timer&              mTimer;
+	Logger&             mLogger;
+	char	              mConfigFile[256];
+	bool	              mLastFailed;
+	map<string, bool>	  mBooleanOptions;
 	map<string, string>	mStringOptions;
-	map<string, int>	mIntegerOptions;
+	map<string, int>	  mIntegerOptions;
 	map<string, float>	mFloatOptions;
 
-	void	loadConfiguration	();
-	void	handleOptionInternally	(const char* option, bool value);
-	void	handleOptionInternally	(const char* option, string& value);
-	void	handleOptionInternally	(const char* option, int value);
-	void	handleOptionInternally	(const char* option, float& value);
-	bool	getBooleanOption	(const char* option);
-	void	setBooleanOption	(const char* option, bool value);
-	string&	getStringOption	(const char* option);
-	void	setStringOption	(const char* option, string& value);
-	int	getIntegerOption	(const char* option);
-	void	setIntegerOption	(const char* option, int value);
-	float	getFloatOption	(const char* option);
-	void	setFloatOption	(const char* option, float value);
+	void	  loadConfiguration	();
+	void	  handleOptionInternally	(const char* option, bool value);
+	void	  handleOptionInternally	(const char* option, string& value);
+	void	  handleOptionInternally	(const char* option, int value);
+	void	  handleOptionInternally	(const char* option, float& value);
+	bool	  getBooleanOption	      (const char* option);
+	void	  setBooleanOption	      (const char* option, bool value);
+	string&	getStringOption	        (const char* option);
+	void	  setStringOption	        (const char* option, string& value);
+	int	    getIntegerOption	      (const char* option);
+	void	  setIntegerOption	      (const char* option, int value);
+	float	  getFloatOption	        (const char* option);
+	void	  setFloatOption	        (const char* option, float value);
 
 	ConfiguratorImpl	(
-			Configurator& parent,
-			const char* configFile,
-			Timer* timer,
-			Logger* logger
-		)
-		: mParent	(parent)
-		, mTimer	(*timer)
-		, mLogger	(*logger)
+                      Configurator& parent,
+                      const char* configFile,
+                      Timer* timer,
+                      Logger* logger
+                    )
+                    : mParent	(parent)
+                    , mTimer	(*timer)
+                    , mLogger	(*logger)
 	{
 		strcpy (mConfigFile, configFile);
 		loadConfiguration ();

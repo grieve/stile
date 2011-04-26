@@ -7,7 +7,6 @@ namespace stile
 {
 	namespace math
 	{
-		float random(float max = 1);
 	}
 }
 
