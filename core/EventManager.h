@@ -24,7 +24,18 @@ namespace stile
 		GAME_STATE_PAUSED,
 		GAME_STATE_SUSPENDED,
 		GAME_STATE_OVER,
-		GAME_STATE_EXIT
+		GAME_STATE_EXIT,
+		WINDOW_STATE_FOCUS,
+		WINDOW_STATE_BLUR
+	};
+	enum MouseEventType
+	{
+	  MOUSE_LEFT,
+	  MOUSE_RIGHT,
+	  MOUSE_MIDDLE,
+	  MOUSE_X1,
+	  MOUSE_X2,
+	  MOUSE_FOCUS
 	};
 	class EventManager;
 }
@@ -45,8 +56,8 @@ public:
 	void      setGameState            (GameState gameState);
 	GameState	getGameState            ();
 	bool      keyPressed              (int key);
-	void      handleKeyEvent          (unsigned char key, int x, int y, bool state, bool alt, bool ctrl, bool shift);
-	void      handleMouseEvent        (int button, int state, int x, int y);
+	void      handleKeyEvent          (unsigned int key, int x, int y, bool state, bool alt, bool ctrl, bool shift);
+	void      handleMouseEvent        (MouseEventType event, int state, int x, int y, bool alt, bool ctrl, bool shift);
 	void      handleMouseMovement     (int x, int y);
 	void      shutdown                (int exitCode);
 	void      processWindowEvents     (sf::Window* window);

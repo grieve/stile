@@ -180,7 +180,7 @@ bool stile::EventManager::keyPressed	(
 }
 
 void stile::EventManager::handleKeyEvent (
-                                                unsigned char key,
+                                                unsigned int key,
                                                 int x,
                                                 int y,
                                                 bool state,
@@ -197,21 +197,24 @@ void stile::EventManager::handleKeyEvent (
 }
 
 void stile::EventManager::handleMouseEvent	(
-		int button,
+		MouseEventType event,
 		int state,
 		int x,
-		int y
+		int y,
+		bool alt,
+		bool ctrl,
+		bool shift
 	)
 {
-	mImpl.mButtonStates[button]->secs	= mImpl.mTimer.getSeconds();
-	mImpl.mButtonStates[button]->state	= state;
-	mImpl.mButtonStates[button]->x	= x;
-	mImpl.mButtonStates[button]->y	= y;
+	mImpl.mButtonStates[event]->secs	= mImpl.mTimer.getSeconds();
+	mImpl.mButtonStates[event]->state	= state;
+	mImpl.mButtonStates[event]->x	= x;
+	mImpl.mButtonStates[event]->y	= y;
 	for (unsigned int i=0; i <mImpl.mMouseListeners.size(); i++)
 	{
-		mImpl.mMouseListeners[i]->handleMouseEvent(button, state, x, y, false, false, false);
+		mImpl.mMouseListeners[i]->handleMouseEvent(event, state, x, y, alt, ctrl, shift);
 	}
-	mImpl.mLogger.debug(5,"EventManager: Mouse event (%d, %d, %d, %d)", button, state, x, y);
+	mImpl.mLogger.debug(5,"EventManager: Mouse event (%d, %d, %d, %d)", event, state, x, y);
 }
 
 void stile::EventManager::handleMouseMovement	(
@@ -238,13 +241,91 @@ void stile::EventManager::shutdown	(
 
 void stile::EventManager::processWindowEvents (sf::Window* window)
 {
+  const sf::Input& input = window->GetInput();
   sf::Event event;
   while(window->GetEvent(event))
   {
-    if(event.Type == sf::Event::Closed)
+    switch(event.Type)
     {
-      setGameState(stile::GAME_STATE_EXIT);
-      shutdown(0);
+      case sf::Event::Closed :
+        setGameState(stile::GAME_STATE_EXIT);
+        shutdown(0);
+        break;
+      case sf::Event::MouseLeft :
+        handleMouseEvent(
+                          stile::MOUSE_FOCUS,
+                          false,
+                          input.GetMouseX(),
+                          input.GetMouseY(),
+                          (input.IsKeyDown(sf::Key::LAlt)     || input.IsKeyDown(sf::Key::RAlt)),
+                          (input.IsKeyDown(sf::Key::LShift)   || input.IsKeyDown(sf::Key::RShift)),
+                          (input.IsKeyDown(sf::Key::LControl) || input.IsKeyDown(sf::Key::RControl))
+                        );
+        break;
+      case sf::Event::MouseEntered :
+        handleMouseEvent(
+                          stile::MOUSE_FOCUS,
+                          true,
+                          input.GetMouseX(),
+                          input.GetMouseY(),
+                          (input.IsKeyDown(sf::Key::LAlt)     || input.IsKeyDown(sf::Key::RAlt)),
+                          (input.IsKeyDown(sf::Key::LShift)   || input.IsKeyDown(sf::Key::RShift)),
+                          (input.IsKeyDown(sf::Key::LControl) || input.IsKeyDown(sf::Key::RControl))
+                        );
+        break;
+      case sf::Event::MouseButtonPressed :
+        handleMouseEvent(
+                          (stile::MouseEventType)event.MouseButton.Button,
+                          true,
+                          input.GetMouseX(),
+                          input.GetMouseY(),
+                          (input.IsKeyDown(sf::Key::LAlt)     || input.IsKeyDown(sf::Key::RAlt)),
+                          (input.IsKeyDown(sf::Key::LShift)   || input.IsKeyDown(sf::Key::RShift)),
+                          (input.IsKeyDown(sf::Key::LControl) || input.IsKeyDown(sf::Key::RControl))
+                        );
+        break;
+      case sf::Event::MouseButtonReleased :
+        handleMouseEvent(
+                          (stile::MouseEventType)event.MouseButton.Button,
+                          false,
+                          input.GetMouseX(),
+                          input.GetMouseY(),
+                          (input.IsKeyDown(sf::Key::LAlt)     || input.IsKeyDown(sf::Key::RAlt)),
+                          (input.IsKeyDown(sf::Key::LShift)   || input.IsKeyDown(sf::Key::RShift)),
+                          (input.IsKeyDown(sf::Key::LControl) || input.IsKeyDown(sf::Key::RControl))
+                        );
+        break;
+      case sf::Event::KeyPressed :
+        handleKeyEvent(
+                        event.Key.Code,
+                        input.GetMouseX(),
+                        input.GetMouseY(),
+                        true,
+                        (input.IsKeyDown(sf::Key::LAlt)     || input.IsKeyDown(sf::Key::RAlt)),
+                        (input.IsKeyDown(sf::Key::LShift)   || input.IsKeyDown(sf::Key::RShift)),
+                        (input.IsKeyDown(sf::Key::LControl) || input.IsKeyDown(sf::Key::RControl))
+                      );
+        break;
+      case sf::Event::KeyReleased :
+        handleKeyEvent(
+                        event.Key.Code,
+                        input.GetMouseX(),
+                        input.GetMouseY(),
+                        false,
+                        (input.IsKeyDown(sf::Key::LAlt)     || input.IsKeyDown(sf::Key::RAlt)),
+                        (input.IsKeyDown(sf::Key::LShift)   || input.IsKeyDown(sf::Key::RShift)),
+                        (input.IsKeyDown(sf::Key::LControl) || input.IsKeyDown(sf::Key::RControl))
+                      );
+        break;
+      case sf::Event::JoyButtonPressed :
+        // handle joystick buttons
+        break;
+      case sf::Event::JoyButtonReleased :
+        // handle joystick release
+        break;
+      case sf::Event::JoyMoved :
+        // handle joy movement
+        break;
     }
   }
 }
