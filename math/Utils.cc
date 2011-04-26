@@ -1,6 +1,6 @@
 #include "Utils.h"
 
-stile::math::random	(
+float stile::math::random	(
 		float max
 	)
 {

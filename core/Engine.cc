@@ -6,7 +6,7 @@ stile::Engine::Engine	(
 		unsigned int	width,
 		unsigned int	height,
 		unsigned int	updateRate,
-		unsigned int	frameRate 
+		unsigned int	frameRate
 	)
 	:mControl(stile::getControl())
 {
@@ -25,16 +25,16 @@ void	stile::Engine::render	()
 	if(mWorld && !mStopped)
 	{
 		mWorld->render();
-		mWindow->Display();	
+		mWindow->Display();
 	}
 }
 
 void	stile::Engine::update	(unsigned int elapsed)
 {
 	sf::Event event;
-	while(mWindow.GetEvent(event))
+	while(mWindow->GetEvent(event))
 	{
-		
+
 	}
 	if(mWorld && !mPaused)
 		mWorld->update(elapsed);

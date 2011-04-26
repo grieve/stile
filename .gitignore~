@@ -1,9 +1,5 @@
 *.bin
 *.anjuta
-*.cbp
-*.depend
-bin/
-obj/
 .anjuta
 .svn
 .anjuta_sym_db.db
