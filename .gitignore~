@@ -1,6 +1,0 @@
-*.bin
-*.anjuta
-.anjuta
-.svn
-.anjuta_sym_db.db
-.dep.inc
