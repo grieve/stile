@@ -1,0 +1,14 @@
+#ifndef RTFF_TIMER_HANDLER
+#define RTFF_TIMER_HANDLER
+
+namespace rtff
+{
+  class TimerHandler;
+}
+
+class rtff::TimerHandler
+{
+   //
+};
+
+#endif //RTFF_TIMER_HANDLER

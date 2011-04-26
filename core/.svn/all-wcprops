@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/cpp/!svn/ver/5/rtff/core
+END
+InputHandler.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cpp/!svn/ver/5/rtff/core/InputHandler.h
+END
+EventManagerInit.cc
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cpp/!svn/ver/5/rtff/core/EventManagerInit.cc
+END
+OutputHandler.h
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/cpp/!svn/ver/5/rtff/core/OutputHandler.h
+END
+Configurator.cc
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/cpp/!svn/ver/5/rtff/core/Configurator.cc
+END
+Initiator.cc
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/cpp/!svn/ver/5/rtff/core/Initiator.cc
+END
+LoggerInit.cc
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/cpp/!svn/ver/5/rtff/core/LoggerInit.cc
+END
+TimerInit.cc
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/cpp/!svn/ver/5/rtff/core/TimerInit.cc
+END
+Configurator.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cpp/!svn/ver/5/rtff/core/Configurator.h
+END
+Initiator.h
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/cpp/!svn/ver/5/rtff/core/Initiator.h
+END
+Init.h
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/cpp/!svn/ver/5/rtff/core/Init.h
+END
+Types.h
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/cpp/!svn/ver/5/rtff/core/Types.h
+END
+EventManager.cc
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/cpp/!svn/ver/5/rtff/core/EventManager.cc
+END
+ConfigListener.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/cpp/!svn/ver/5/rtff/core/ConfigListener.h
+END
+EventManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cpp/!svn/ver/5/rtff/core/EventManager.h
+END
+Logger.cc
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/cpp/!svn/ver/5/rtff/core/Logger.cc
+END
+Timer.cc
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/cpp/!svn/ver/5/rtff/core/Timer.cc
+END
+TimerHandler.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cpp/!svn/ver/5/rtff/core/TimerHandler.h
+END
+Logger.h
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/cpp/!svn/ver/5/rtff/core/Logger.h
+END
+Timer.h
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/cpp/!svn/ver/5/rtff/core/Timer.h
+END
+ConfiguratorInit.cc
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cpp/!svn/ver/5/rtff/core/ConfiguratorInit.cc
+END

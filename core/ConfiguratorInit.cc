@@ -1,0 +1,35 @@
+
+#include "Initiator.h"
+#include "Logger.h"
+#include "Timer.h"
+#include "EventManager.h"
+#include "Configurator.h"
+
+namespace stile
+{
+
+template <>
+Init<Configurator>::Init ()
+{
+	setIdentifier	("Configurator");
+	getInitiator().addInit	(this, 12);
+}
+
+template <>
+Init<Configurator>::~Init ()
+{
+}
+
+template <>
+void Init<Configurator>::create(List* list)
+{
+	Timer* timer	=	getBone<Timer>	(list, "Timer");
+	Logger* logger	=	getBone<Logger>	(list, "Logger");
+	Configurator* configurator	=	new Configurator	("stile.ini", timer, logger);
+
+	list->insert(List::value_type(getIdentifier(),configurator));
+}
+
+Init<Configurator> configuratorInit;
+
+}

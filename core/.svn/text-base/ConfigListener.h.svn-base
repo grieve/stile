@@ -1,0 +1,15 @@
+#ifndef RTFF_CONFIG_LISTENER
+#define RTFF_CONFIG_LISTENER
+
+namespace rtff
+{
+  class ConfigListener;
+}
+
+class rtff::ConfigListener
+{
+   // virtual void    handleStringOptionChange    (string& option, string& value);
+
+};
+
+#endif // RTFF_CONFIG_LISTENER

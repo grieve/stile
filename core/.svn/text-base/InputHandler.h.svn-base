@@ -1,0 +1,37 @@
+/*
+&&LICENSE
+COPYRIGHT (C)2010 - RYAN GRIEVE
+LICENSE&&
+*/
+
+
+#ifndef RTFF_INPUT_HANDLER
+#define RTFF_INPUT_HANDLER
+
+namespace rtff
+{
+  struct MouseEvent;
+  class  InputHandler;
+}
+
+struct rtff::MouseEvent
+{
+    unsigned int    button;
+    bool            state;
+    unsigned int    x;
+    unsigned int    y;
+    float           secs;
+};
+
+class rtff::InputHandler
+{
+public:
+    virtual void handleKeyboardEvent    
+          (int key, int x, int y, bool state, bool special)   = 0;
+    virtual void handleMouseEvent
+          (int button, bool state, int x, int y)              = 0;
+    virtual void handleMouseMovement
+          (int x, int y, MouseEvent** buttons) {};
+};
+
+#endif //RTFF_INPUT_HANDLER

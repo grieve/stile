@@ -1,0 +1,19 @@
+#include "Rtff.h"
+
+rtff::Control::Control()
+{
+    list                  = new rtff::List;
+    rtff::Initiator& init  = getInitiator();
+    init.initialize       (list);
+
+    time    = (rtff::Timer*)list->find("Timer")->second;
+    log     = (rtff::Logger*)list->find("Logger")->second;
+    config  = (rtff::Configurator*)list->find("Configurator")->second;
+    event   = (rtff::EventManager*)list->find("EventManager")->second;
+}
+
+rtff::Control& rtff::getControl()
+{
+    static Control control;
+    return control;
+}

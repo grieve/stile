@@ -1,0 +1,60 @@
+#ifndef RTFF_INIT
+#define RTFF_INIT
+
+#include <string>
+#include <cstring>
+#include "Types.h"
+
+namespace rtff
+{
+  class InitX;
+  template <class T> class Init;
+}
+
+using namespace std;
+
+class rtff::InitX
+{
+public:
+    InitX                      ();
+    virtual ~InitX             ();
+
+    virtual void     setIdentifier  (const string& name);
+    virtual string   getIdentifier  () const;
+    virtual void     create         (rtff::List* rtffList) = 0;
+
+protected:
+    string           mIdentifier;
+};
+
+template <class T>
+class rtff::Init : public rtff::InitX
+{
+public:
+    Init               ();
+    virtual ~Init      ();
+    virtual void create     (rtff::List* rtffList);
+};
+
+inline
+rtff::InitX::InitX ()
+    : mIdentifier   ("unknown")
+{}
+
+inline
+rtff::InitX::~InitX ()
+{}
+
+inline
+void rtff::InitX::setIdentifier (const string& identifier)
+{
+    mIdentifier = identifier;
+}
+
+inline
+string rtff::InitX::getIdentifier() const
+{
+    return mIdentifier;
+}
+
+#endif //RTFF_INIT

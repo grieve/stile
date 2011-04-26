@@ -1,0 +1,29 @@
+#include "Initiator.h"
+#include "Timer.h"
+
+namespace rtff
+{
+
+template <>
+Init<Timer>::Init ()
+{
+    setIdentifier ("Timer");
+    getInitiator().addInit (this, 10);
+}
+
+template <>
+Init<Timer>::~Init ()
+{
+}
+
+template <>
+void Init<Timer>::create(List* rtffList)
+{
+    Timer* rtffTimer = new Timer(getIdentifier().c_str());
+    rtffList->insert(List::value_type(getIdentifier(),rtffTimer));
+}
+
+Init<Timer> rtffTimerInit;
+
+}
+

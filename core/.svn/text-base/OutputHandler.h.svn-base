@@ -1,0 +1,25 @@
+/*
+&&LICENSE
+COPYRIGHT (C)2010 - RYAN GRIEVE
+LICENSE&&
+*/
+
+
+#ifndef RTFF_OUTPUT_HANDLER
+#define RTFF_OUTPUT_HANDLER
+
+#include <sstream>
+
+namespace rtff
+{
+  typedef void(*OutputCallback)(std::ostringstream&);
+  class OutputHandler;
+}
+
+class rtff::OutputHandler
+{
+public:
+    virtual void write (std::ostringstream& strOutput)   = 0;
+ };
+
+#endif //RTFF_OUTPUT_HANDLER

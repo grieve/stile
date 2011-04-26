@@ -1,0 +1,14 @@
+#ifndef RTFF_TYPES
+#define RTFF_TYPES
+
+#include <map>
+#include <string>
+#include <cstring>
+#include <iostream>
+
+namespace rtff
+{
+  typedef std::map<std::string, void*> List;
+}
+
+#endif // RTFF_TYPES

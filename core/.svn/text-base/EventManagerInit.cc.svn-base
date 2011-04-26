@@ -1,0 +1,34 @@
+#include "Initiator.h"
+#include "Logger.h"
+#include "Timer.h"
+#include "EventManager.h"
+
+namespace rtff
+{
+
+template <>
+Init<EventManager>::Init ()
+{
+    setIdentifier ("EventManager");
+    getInitiator().addInit (this, 13);
+}
+
+template <>
+Init<EventManager>::~Init ()
+{
+}
+
+template <>
+void Init<EventManager>::create(List* rtffList)
+{
+    Timer*         rtffTimer  = getBone<Timer>(rtffList, "Timer");
+    Logger*        rtffLogger = getBone<Logger>(rtffList, "Logger");
+    Configurator*  rtffConfig = getBone<Configurator>(rtffList, "Configurator");
+
+    EventManager* rtffEventManager = new EventManager(rtffTimer, rtffLogger, rtffConfig);
+    rtffList->insert(List::value_type(getIdentifier(),rtffEventManager));
+}
+
+Init<EventManager> rtffEventManagerInit;
+
+}

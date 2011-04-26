@@ -1,0 +1,50 @@
+#include <iostream>
+#include <map>
+#include "Initiator.h"
+
+using std::multimap;
+
+namespace rtff
+{
+  typedef multimap<unsigned int, InitX*>  InitList;
+}
+
+class rtff::InitiatorImpl
+{
+public:
+    InitiatorImpl      () {}
+    ~InitiatorImpl     () {}
+    InitList           rtffInitList;
+};
+
+
+rtff::Initiator::Initiator ()
+{
+    mImpl = new InitiatorImpl();
+}
+
+rtff::Initiator::~Initiator ()
+{
+    if (mImpl) delete mImpl;
+    mImpl = 0;
+}
+
+void rtff::Initiator::addInit (rtff::InitX* rtffInit, int weight)
+{
+    mImpl->rtffInitList.insert(InitList::value_type(weight,rtffInit));
+}
+
+void rtff::Initiator::initialize (rtff::List* rtffList)
+{
+    for (InitList::iterator i = mImpl->rtffInitList.begin(); i != mImpl->rtffInitList.end(); ++i)
+    {
+        InitX* bone = i->second;
+        bone->create (rtffList);
+    }
+}
+
+rtff::Initiator& rtff::getInitiator()
+{
+    static rtff::Initiator rtffInit;
+    return rtffInit;
+}

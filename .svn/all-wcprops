@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 24
+/svn/cpp/!svn/ver/5/rtff
+END
+rtff.ini
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/cpp/!svn/ver/5/rtff/rtff.ini
+END
+Makefile.inc
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/cpp/!svn/ver/7/rtff/Makefile.inc
+END
+Rtff.cc
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/cpp/!svn/ver/5/rtff/Rtff.cc
+END
+Rtff.h
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/cpp/!svn/ver/5/rtff/Rtff.h
+END

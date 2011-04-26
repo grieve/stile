@@ -1,0 +1,33 @@
+#include "Initiator.h"
+#include "Logger.h"
+#include "Timer.h"
+
+namespace rtff
+{
+
+template <>
+Init<Logger>::Init ()
+{
+    setIdentifier ("Logger");
+    getInitiator().addInit (this, 11);
+}
+
+template <>
+Init<Logger>::~Init ()
+{
+}
+
+template <>
+void Init<Logger>::create(List* rtffList)
+{
+    Timer* rtffTimer = getBone<Timer>(rtffList, "Timer");
+
+    Logger* rtffLogger = new Logger(getIdentifier().c_str(), rtffTimer);
+    rtffLogger->enableStdOut(true);
+    rtffList->insert(List::value_type(getIdentifier(),rtffLogger));
+}
+
+Init<Logger> rtffLoggerInit;
+
+}
+
