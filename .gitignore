@@ -8,3 +8,6 @@ obj/
 .svn
 .anjuta_sym_db.db
 .dep.inc
+stile
+stile_examples
+*.layout
